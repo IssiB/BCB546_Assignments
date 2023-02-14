@@ -47,7 +47,8 @@ $ grep -E "(Sample_ID|ZMMIL|ZMMLR|ZMMMR)" fang_et_al_genotypes.txt > maize.txt
 $ awk -f transpose.awk maize.txt > transposed_maize_genotypes.txt 
 $ sort -k1,1n transposed_maize_genotype.txt > sorted_transposed_maize_genotype.txt
 $ sort -k1,1n snp_position.txt > sorted_snp_position.txt   
-$ join -1 1 -2 1 -t $'\t' -a 1 sorted_snp_position.txt sorted_transposed_maize_genotypes.txt >    complete_maize.txt
+$ join -1 1 -2 1 -t $'\t' -a 1 sorted_snp_position.txt sorted_transposed_maize_genotypes.txt > complete_maize.txt
+$ cut --complement -f2 complete_maize.txt > complete_maize_adjusted.txt
 $ awk '$3 ~ /^1$/' complete_maize.txt | sort -k4,4n > chr1_maize_increasing.txt #ran this line of code for all 10 chromosomes for sorting by increasing position
 $ awk '$3 ~ /^1$/' complete_maize.txt | sort -k4,4nr | sed 's/?/-/g' > chr1_maize_decreasing.txt
   #ran this line of code for all 10 chromosomes for sorting by decreasing position
