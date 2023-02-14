@@ -87,4 +87,4 @@ $ mv chr*_teosinte_decreasing.txt teosinte_chr_decreasing/
 
 ```
 
-Here is my brief description of what this code does
+Here is my brief description of what this code does.
