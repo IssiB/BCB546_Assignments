@@ -45,8 +45,8 @@ $ cut -f1,3,4 snp_position.txt > cut_snp_position.txt
 $ grep -E "(Sample_ID|ZMMIL|ZMMLR|ZMMMR)" fang_et_al_genotypes.txt > maize.txt
 $ awk -f transpose.awk maize.txt > transposed_maize_genotypes.txt 
 $ sort -k1,1 transposed_maize_genotypes.txt > sorted_transposed_maize_genotypes.txt
-$ sort -k1,1 snp_position.txt > sorted_snp_position.txt   
-$ join -1 1 -2 1 -t $'\t' -a 1 sorted_snp_position.txt sorted_transposed_maize_genotypes.txt > complete_maize.txt
+$ sort -k1,1 cut_snp_position.txt > sorted_cut_snp_position.txt   
+$ join -1 1 -2 1 -t $'\t' -a 1 sorted_cut_snp_position.txt sorted_transposed_maize_genotypes.txt > complete_maize.txt
 $ awk '$2 ~ /^1$/' complete_maize.txt | sort -k3,3n > chr1_maize_increasing.txt #ran this line of code for all 10 chromosomes for sorting by increasing position
 $ awk '$2 ~ /^1$/' complete_maize.txt | sort -k3,3nr | sed 's/?/-/g' > chr1_maize_decreasing.txt
   #ran this line of code for all 10 chromosomes for sorting by decreasing position
@@ -58,7 +58,7 @@ $ mkdir maize_chr_increasing
 $ mv chr*_maize_increasing ChrIncreasing/
 ```
 
-In the code above, first cut the files necessary from teh snp_position.txt. I then separate the maize data from the fang_et_al_genotypes.txt using the "grep" command. After transposing this document, I sorted the data by the 1st column (Sample_ID). I then sorted the cut_snp_position.txt document by the first column (common column -> SNP_ID) and joined this document with the transposed_maize_genotype.txt document by the commone column (1). I then separated data from the first chromosome using the awk command, followed by a pipe to sort by increasing position. I ran this line of code 10 times for all of the chromosomes. Missing data is already represented by a ?. I repeated the same code for all chromosomes for decreasing position (adding "r" following the sort command), followed by a pipe to change "?" to "-" using the sed command. I then separated SNPs with "unknown" and "multiple" positions using the awk command. I created folders for the increasing and decreasing chromosome documents and moved the correct documents into each. 
+In the code above, I first cut the columns necessary from the snp_position.txt (columns 1, 3, and 4). I then separate the maize data from the fang_et_al_genotypes.txt using the "grep" command. After transposing this document, I sorted the data by the 1st column (Sample_ID). I then sorted the cut_snp_position.txt document by the first column (common column -> SNP_ID) and joined this document with the transposed_maize_genotype.txt document by the commone column (1). I then separated data from the first chromosome using the awk command, followed by a pipe to sort by increasing position. I ran this line of code 10 times for all of the chromosomes. Missing data is already represented by a ?. I repeated the same code for all chromosomes for decreasing position (adding "r" following the sort command), followed by a pipe to change "?" to "-" using the sed command. I then separated SNPs with "unknown" and "multiple" positions using the awk command. I created folders for the increasing and decreasing chromosome documents and moved the correct documents into each. 
 
 
 
@@ -69,7 +69,7 @@ $ grep -E "(Sample_ID|ZMPBA|ZMPIL|ZMPJA)" fang_et_al_genotypes.txt > teosinte.tx
 $ awk -f transpose.awk teosinte.txt > transposed_teosinte_genotypes.txt
 $ sort -k1,1n transposed_teosinte_genotypes.txt > sorted_transposed_teosinte_genotypes.txt
 $ sort -k1,1n cut_snp_position.txt > sorted_cut__snp_position.txt   
-$ join -1 1 -2 1 -t $'\t' -a 1 sorted_snp_position.txt sorted_transposed_teosinte_genotypes.txt > complete_teosinte.txt
+$ join -1 1 -2 1 -t $'\t' -a 1 sorted_cut_snp_position.txt sorted_transposed_teosinte_genotypes.txt > complete_teosinte.txt
 $ awk '$2 ~ /^1$/' complete_teosinte.txt | sort -k3,3n > chr1_teosinte_increasing.txt #ran this line of code for all 10 chromosomes for sorting by increasing position
 $ mkdir teosinte_chr_increasing
 $ mv chr*_teosinte_increasing.txt teosinte_chr_increasing/
@@ -80,4 +80,4 @@ $ awk '$3 ~ /^multiple$/' complete_teosinte.txt > SNP_teosinte_multiple_position
 $ awk '$3 ~ /^unknown$/' complete_teosinte.txt > SNP_teosinte_unknown_positions.txt
 ```
 
-In the code above, I separate the teosinte data from the fang_et_al_genotypes.txt using the "grep" command. After transposing this document, I sorted the data by the 1st column (Sample_ID). I then sorted the cut_snp_position.txt document by the first column (common column -> SNP_ID) and joined this document with the transposed_teosinte_genotype.txt document by the commone column (1). I then separated data from the first chromosome using the awk command, followed by a pipe to sort by increasing position. I ran this line of code 10 times for all of the chromosomes. Missing data is already represented by a ?. I repeated the same code for all chromosomes for decreasing position (adding "r" following the sort command), followed by a pipe to change "?" to "-" using the sed command. I then separated SNPs with "unknown" and "multiple" positions using the awk command. I created folders for the increasing and decreasing chromosome documents and moved the correct documents into each. 
+In the code above, I separate the teosinte data from the fang_et_al_genotypes.txt using the "grep" command. After transposing this document, I sorted the data by the 1st column (Sample_ID). I then sorted the cut_snp_position.txt document by the first column and joined this document with the transposed_teosinte_genotype.txt document by the commone column (column 1). I then separated data from the first chromosome using the awk command, followed by a pipe to sort by increasing position. I ran this line of code 10 times for all of the chromosomes. Missing data is already represented by a ?. I repeated the same code for all chromosomes for decreasing position (adding "r" following the sort command), followed by a pipe to change "?" to "-" using the sed command. I then separated SNPs with "unknown" and "multiple" positions using the awk command. I created folders for the increasing and decreasing chromosome documents and moved the correct documents into each. 
