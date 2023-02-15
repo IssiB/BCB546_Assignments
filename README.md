@@ -1,8 +1,8 @@
-#UNIX Assignment
+# UNIX Assignment
 
-##Data Inspection
+## Data Inspection
 
-###Attributes of `fang_et_al_genotypes`
+### Attributes of `fang_et_al_genotypes`
 
 ```
 $ wc fang_et_al_genotypes.txt
@@ -20,7 +20,7 @@ By inspecting this file I learned that:
 
 
 
-###Attributes of `snp_position.txt`
+### Attributes of `snp_position.txt`
 
 ```
 $ wc snp_position.txt
@@ -38,9 +38,9 @@ By inspecting this file I learned that:
 
 
 
-##Data Processing
+## Data Processing
 
-###Maize Data
+### Maize Data
 
 ```
 $ grep -E "(Sample_ID|ZMMIL|ZMMLR|ZMMMR)" fang_et_al_genotypes.txt > maize.txt
@@ -48,24 +48,24 @@ $ awk -f transpose.awk maize.txt > transposed_maize_genotypes.txt
 $ sort -k1,1n transposed_maize_genotype.txt > sorted_transposed_maize_genotype.txt
 $ sort -k1,1n snp_position.txt > sorted_snp_position.txt   
 $ join -1 1 -2 1 -t $'\t' -a 1 sorted_snp_position.txt sorted_transposed_maize_genotypes.txt > complete_maize.txt
-$ cut --complement -f2 complete_maize.txt > complete_maize_adjusted.txt
 $ awk '$3 ~ /^1$/' complete_maize.txt | sort -k4,4n > chr1_maize_increasing.txt #ran this line of code for all 10 chromosomes for sorting by increasing position
 $ awk '$3 ~ /^1$/' complete_maize.txt | sort -k4,4nr | sed 's/?/-/g' > chr1_maize_decreasing.txt
   #ran this line of code for all 10 chromosomes for sorting by decreasing position
 $ awk '$4 ~ /^unknown$/' complete_maize.txt > SNP_unknown_positions.txt
 $ awk '$4 ~ /^multiple$/' complete_maize.txt > SNP_multiple_positions.txt
-$ mkdir ChrDecreasing
+$ mkdir maize_chr_decreasing
 $ mv chr*_maize_decreasing ChrDecreasing/
-$ mkdir ChrIncreasing
+$ mkdir maize_chr_increasing
 $ mv chr*_maize_increasing ChrIncreasing/
 
 
 ```
 
-Here is my brief description of what this code does
+In the code above, I separate the maize data from the fang_et_al_genotypes.txt using the "grep" command. After transposing this document, I sorted the data by the 1st column (Sample_ID). I then sorted the snp_position.txt document by the first column (common column -> SNP_ID) and joined this document with the transposed_maize_genotype.txt document by the commone column (1). I then separated data from the first chromosome using the awk command, followed by a pipe to sort by increasing position. I ran this line of code 10 times for all of the chromosomes. Missing data is already represented by a ?. I repeated the same code for all chromosomes for decreasing position (adding "r" following the sort command), followed by a pipe to change "?" to "-" using the sed command. I then separated SNPs with "unknown" and "multiple" positions using the awk command. I created folders for the increasing and decreasing chromosome documents and moved the correct documents into each. 
 
 
-###Teosinte Data
+
+### Teosinte Data
 
 ```
 $ grep -E "(Sample_ID|ZMPBA|ZMPIL|ZMPJA)" fang_et_al_genotypes.txt > teosinte.txt
@@ -83,10 +83,7 @@ $ awk '$4 ~ /^multiple$/' complete_teosinte.txt > SNP_teosinte_multiple_position
 awk '$4 ~ /^unknown$/' complete_teosinte.txt > SNP_teosinte_unknown_positions.txt
 
 
-
-
-
-
 ```
 
-Here is my brief description of what this code does.
+In the code above, I separate the teosinte data from the fang_et_al_genotypes.txt using the "grep" command. After transposing this document, I sorted the data by the 1st column (Sample_ID). I then sorted the snp_position.txt document by the first column (common column -> SNP_ID) and joined this document with the transposed_teosinte_genotype.txt document by the commone column (1). I then separated data from the first chromosome using the awk command, followed by a pipe to sort by increasing position. I ran this line of code 10 times for all of the chromosomes. Missing data is already represented by a ?. I repeated the same code for all chromosomes for decreasing position (adding "r" following the sort command), followed by a pipe to change "?" to "-" using the sed command. I then separated SNPs with "unknown" and "multiple" positions using the awk command. I created folders for the increasing and decreasing chromosome documents and moved the correct documents into each. 
+
