@@ -52,8 +52,8 @@ $ cut --complement -f2 complete_maize.txt > complete_maize_adjusted.txt
 $ awk '$3 ~ /^1$/' complete_maize.txt | sort -k4,4n > chr1_maize_increasing.txt #ran this line of code for all 10 chromosomes for sorting by increasing position
 $ awk '$3 ~ /^1$/' complete_maize.txt | sort -k4,4nr | sed 's/?/-/g' > chr1_maize_decreasing.txt
   #ran this line of code for all 10 chromosomes for sorting by decreasing position
-$ grep "unknown" complete_maize.txt > SNP_unknown_positions.txt
-$ grep "multiple" complete_maize.txt > SNP_multiple_positions
+$ awk '$4 ~ /^unknown$/' complete_maize.txt > SNP_unknown_positions.txt
+$ awk '$4 ~ /^multiple$/' complete_maize.txt > SNP_multiple_positions.txt
 $ mkdir ChrDecreasing
 $ mv chr*_maize_decreasing ChrDecreasing/
 $ mkdir ChrIncreasing
@@ -79,6 +79,8 @@ $ mv chr*_teosinte_increasing.txt teosinte_chr_increasing/
 $ awk '$3 ~ /^1$/' complete_teosinte.txt | sort -k4,4nr | sed 's/?/-/g' > chr1_teosinte_decreasing.txt # ran this line of code for all 10 chromosomes for sorting by decreasing positions
 $ mkdir teosinte_chr_decreasing
 $ mv chr*_teosinte_decreasing.txt teosinte_chr_decreasing/
+$ awk '$4 ~ /^multiple$/' complete_teosinte.txt > SNP_teosinte_multiple_positions.txt
+awk '$4 ~ /^unknown$/' complete_teosinte.txt > SNP_teosinte_unknown_positions.txt
 
 
 
