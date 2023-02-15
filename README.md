@@ -9,7 +9,6 @@ $ wc fang_et_al_genotypes.txt
 $ du -h fang_et_al_genotypes.txt
 $ awk -F "\t" '{print NF; exit}' fang_et_al_genotypes.txt
 $ tail -n +6 fang_et_al_genotypes.txt | awk -F "\t" '{print NF; exit}'
-
 ```
 
 By inspecting this file I learned that:
@@ -27,7 +26,6 @@ $ wc snp_position.txt
 $ du -h snp_position.txt
 $ awk -F "\t" '{print NF; exit}' snp_position.txt
 $ tail -n +6 snp_position.txt | awk -F "\t" '{print NF; exit}'
-
 ```
 
 By inspecting this file I learned that:
@@ -57,8 +55,6 @@ $ mkdir maize_chr_decreasing
 $ mv chr*_maize_decreasing ChrDecreasing/
 $ mkdir maize_chr_increasing
 $ mv chr*_maize_increasing ChrIncreasing/
-
-
 ```
 
 In the code above, I separate the maize data from the fang_et_al_genotypes.txt using the "grep" command. After transposing this document, I sorted the data by the 1st column (Sample_ID). I then sorted the snp_position.txt document by the first column (common column -> SNP_ID) and joined this document with the transposed_maize_genotype.txt document by the commone column (1). I then separated data from the first chromosome using the awk command, followed by a pipe to sort by increasing position. I ran this line of code 10 times for all of the chromosomes. Missing data is already represented by a ?. I repeated the same code for all chromosomes for decreasing position (adding "r" following the sort command), followed by a pipe to change "?" to "-" using the sed command. I then separated SNPs with "unknown" and "multiple" positions using the awk command. I created folders for the increasing and decreasing chromosome documents and moved the correct documents into each. 
@@ -81,8 +77,6 @@ $ mkdir teosinte_chr_decreasing
 $ mv chr*_teosinte_decreasing.txt teosinte_chr_decreasing/
 $ awk '$4 ~ /^multiple$/' complete_teosinte.txt > SNP_teosinte_multiple_positions.txt
 awk '$4 ~ /^unknown$/' complete_teosinte.txt > SNP_teosinte_unknown_positions.txt
-
-
 ```
 
 In the code above, I separate the teosinte data from the fang_et_al_genotypes.txt using the "grep" command. After transposing this document, I sorted the data by the 1st column (Sample_ID). I then sorted the snp_position.txt document by the first column (common column -> SNP_ID) and joined this document with the transposed_teosinte_genotype.txt document by the commone column (1). I then separated data from the first chromosome using the awk command, followed by a pipe to sort by increasing position. I ran this line of code 10 times for all of the chromosomes. Missing data is already represented by a ?. I repeated the same code for all chromosomes for decreasing position (adding "r" following the sort command), followed by a pipe to change "?" to "-" using the sed command. I then separated SNPs with "unknown" and "multiple" positions using the awk command. I created folders for the increasing and decreasing chromosome documents and moved the correct documents into each. 
